@@ -75,7 +75,7 @@ public:
 	void remove(std::string key) {
 		auto l = contextMutex.lock();
 		ensure(key, sizeof(T));
-		delete std::get<1>(saveValues[key]);
+		delete[] (void*)std::get<1>(saveValues[key]);
 		saveValues.erase(key);
 	}
 };
@@ -242,7 +242,7 @@ public:
 	static inline void remove(std::string key) {
 		auto l = mainContext.contextMutex.lock();
 		mainContext.ensure(key, sizeof(T));
-		delete std::get<1>(mainContext.saveValues[key]);
+		delete (void*)std::get<1>(mainContext.saveValues[key]);
 		mainContext.saveValues.erase(key);
 	}
 } cfg, Cfg, ConfigSystem, Config, config;
